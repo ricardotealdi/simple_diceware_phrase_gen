@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-require 'yaml'
-
-combinations = YAML.load_file('combinations.yml')
-
-puts(
-  6.times.map { combinations[5.times.map { rand(6) + 1 }.join.to_i] }.join(' ')
-)

@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+require 'yaml'
+
+combinations = YAML.load_file('combinations.yml')
+words_quantity = ENV.fetch('WORDS_QTY', 6).to_i
+
+gen_phrase = lambda do |combinations_to_word, quantity|
+  quantity.times.map do
+    combination = 5.times.map { rand(6) + 1 }.join.to_i
+    combinations_to_word[combination]
+  end.join(' ')
+end
+
+puts(gen_phrase.call(combinations, words_quantity))
