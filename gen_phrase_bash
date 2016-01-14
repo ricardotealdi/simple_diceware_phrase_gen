@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euom pipefail
+
+fetch_word() {
+    echo "$(grep $2 $1 | tr -d "$2: \"")"
+}
+
+gen_combination() {
+    local combination=""
+
+    for i in $(seq 1 5);
+    do
+        combination="$combination$((($RANDOM % 6) + 1))"
+    done
+
+    echo "$combination"
+}
+
+gen_phrase() {
+  local times=${WORDS_QTY:-6}
+  local file="${COMBINATIONS_FILE:-combinations.yml}"
+  local phrase=""
+
+  for i in $(seq 1 $times);
+  do
+      local word="$(fetch_word $file $(gen_combination 5))"
+      phrase="$phrase$word "
+  done
+
+  echo "$phrase"
+}
+
+echo "$(gen_phrase)"
